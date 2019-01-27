@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Bootstrap Core CSS -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='stylesheets/style.css' />
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <link  href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.12.3.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+        <script>
+              var socket = io();
+              socket.on('pageRefresh', (data) =>console.log(data.description));
+        </script>
+
+</head>
+
+<body>
+<div class="form-group col-sm-offset-4" style="margin-top:30px">
+       <%if(typeof message !== 'undefined'){%><p><%=message%></p><%}%>
+    </div>
+<div class="form-group col-sm-offset-11" style="margin-top:30px">
+        <a href="admin/addProduct"><button class="btn btn-success"> ADD </button></a>
+    </div>
+    <script>
+        $(document).ready(function() {
+                    $('#dataTable').DataTable();
+                    $('#dataTable').addClass('col-md-12');
+        });
+    </script>
+    <table class="table col-md-12 table-striped table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Desc</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%data.forEach((product)=>{%>
+                    <tr>
+                        <td>
+                            <%=product._id%>
+                        </td>
+                        <td>
+                            <%=product.name%>
+                        </td>
+                        <td>
+                            <%=product.desc%>
+                        </td>
+                        <td>
+                            <%=product.price%>
+                        </td>
+                        <td>
+                            <a href="/admin/edit_news/<%=product._id%>" style="text-decoration: none">
+                                <button class="btn btn-warning">Edit</button>
+                            </a>
+                            <a href="/admin/delete_news/<%=product._id%>" style="text-decoration: none">
+                                <button class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                 <%})%>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+</body>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+</html>

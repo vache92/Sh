@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Add News </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/socket.io/socket.io.js"></script>
+            <script>
+              var socket = io({transports: ['websocket']});
+              socket.on('pageRefresh', (data) =>console.log(data.description));
+            </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add News</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/add" method="post" role="form" enctype="multipart/form-data">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Title" name="title" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <textarea  class="form-control" name="content" ></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control"  name="upload" type="file">
+                                </div>
+
+                                <!-- Change this to a button or input when using this as a form -->
+                                <div class="form-group col-sm-offset-3">
+                                <button type="submit" class="btn  btn-success">ADD</button>
+                                <a href="/admin" class="btn btn-primary">Cancel </a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
